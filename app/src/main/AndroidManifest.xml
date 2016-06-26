@@ -8,13 +8,24 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-       <receiver android:name="activity_main">
+       <receiver android:name=".MainActivity">
         <intent-filter>
             <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
         </intent-filter>
-           <meta-data android:name="android.appwidget.AppWidgetProvider"
+           <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/widget"/>
     </receiver>
+
+    <activity android:name=".Configure">
+
+    <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
+
+    </intent-filter>
+
+    </activity>
+
+
     </application>
 
 </manifest>
