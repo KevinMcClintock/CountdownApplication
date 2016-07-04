@@ -26,16 +26,16 @@ public class MainActivity extends AppWidgetProvider {
         //DateFormat format = SimpleDateFormat.getTimeInstance(
                 //SimpleDateFormat.MEDIUM, Locale.getDefault());
         //int dateTime = dt.getDay() + dt.getMonth() + dt.getYear();
-       // CharSequence dateTimeFormat = format.format(dateTime);
+       //CharSequence dateTimeFormat = format.format(dateTime);
 
         for (int i = 0; i < appWidgetIds.length; i++) {
             int currentWidgetId = appWidgetIds[i];
-            String url = "http://www.tutorialspoint.com";
+            //String url = "http://www.tutorialspoint.com";
 
 
             Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            intent.setData(Uri.parse(url));
+            //intent.setData(Uri.parse(url));
 
 
 

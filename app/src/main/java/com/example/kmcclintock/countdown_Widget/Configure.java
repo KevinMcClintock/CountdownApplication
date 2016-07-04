@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -41,33 +42,46 @@ public class Configure extends Activity {
         final AppWidgetManager widgetManager = AppWidgetManager.getInstance(context);
         final RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.activity_main);
 
-        DatePicker dp = (DatePicker)findViewById(R.id.datePicker);
+
         Button b = (Button)findViewById(R.id.launch);
         //final TextView tv = (TextView)findViewById(R.id.textView);
         final Calendar today = Calendar.getInstance();
+        DatePicker dp = (DatePicker)findViewById(R.id.datePicker);
+
 
         //Set all the date information
         dp.init(today.get(Calendar.YEAR)
                 ,today.get(Calendar.MONTH)
                 ,today.get(Calendar.DAY_OF_MONTH),
-        new DatePicker.OnDateChangedListener() {
+                new DatePicker.OnDateChangedListener() {
 
-            @Override
-            public void onDateChanged(DatePicker view,
-                                      int year, int monthOfYear,int dayOfMonth) {
-                dt.setYear(year);
-                dt.setMonth(monthOfYear);
-                dt.setDay(dayOfMonth);
-            }});
+                    @Override
+                    public void onDateChanged(DatePicker view,
+                                              int year, int monthOfYear,int dayOfMonth) {
+                        dt.setYear(year);
+                        dt.setMonth(monthOfYear);
+                        dt.setDay(dayOfMonth);
+                    }});
+
 
         b.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v){
 
-                Intent intent = new Intent(Intent.ACTION_VIEW);
+
+                //DateFormat format = SimpleDateFormat.getTimeInstance(
+                        //SimpleDateFormat.MEDIUM, Locale.getDefault());
+                int day = dt.getDay();
+                int month = dt.getMonth();
+                int year = dt.getYear();
+                int dateTimeFormat = day + month + year;
+                CharSequence wantedDate = getString(dateTimeFormat);
+
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(wantedDate.toString()));
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                //intent.setData(Uri.parse(url));
+                intent.setData(Uri.parse(wantedDate.toString()));
+
 
                 PendingIntent pending = PendingIntent.getActivity(context, 0, intent, 0);
                 views.setOnClickPendingIntent(R.id.button, pending);
@@ -79,12 +93,9 @@ public class Configure extends Activity {
                 //Set the return result
                 setResult(RESULT_OK,resultValue);
 
-                DateFormat format = SimpleDateFormat.getTimeInstance(
-                SimpleDateFormat.MEDIUM, Locale.getDefault());
-                int dateTime = dt.getDay() + dt.getMonth() + dt.getYear();
-                CharSequence dateTimeFormat = format.format(dateTime);
 
-                views.setTextViewText(R.id.textView,dateTimeFormat);
+
+                views.setTextViewText(R.id.textView,wantedDate);
 
 
                 //Close Activity

@@ -1,7 +1,7 @@
 <appwidget-provider
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:minWidth="146dp"
-    android:updatePeriodMillis="1000"
+    android:updatePeriodMillis="0"
     android:minHeight="146dp"
     android:configure="com.example.kmcclintock.countdown_Widget.Configure"
     android:initialLayout="@layout/activity_main">
